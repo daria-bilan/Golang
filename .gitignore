@@ -1,0 +1,15 @@
+# Ignore compiled binaries
+/bin/
+/build/
+
+# Ignore OS/system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore environment and local config files
+.env
+config.local.json
