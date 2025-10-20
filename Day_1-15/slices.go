@@ -254,18 +254,21 @@ func main() {
 	// Homework
 	studentNames := []string{}
 	studentGrades := []float64{}
-	isDataOk := false
-	name, grade := "", 0.0
 	userChoice := 0
 
 	for userChoice != 5 {
+		var isDataOk bool
+		var name string
+		var grade float64
+
 		userChoice = 0
 		fmt.Println("=== Student Grade Manager ===")
 		fmt.Println("1. Add student\n" +
 			"2. Display all students\n" +
 			"3. Show statistics\n" +
 			"4. Remove student\n" +
-			"5. Exit")
+			"5. Exit\n")
+		fmt.Print("Choice: ")
 		fmt.Scan(&userChoice)
 
 		switch userChoice {
@@ -275,19 +278,16 @@ func main() {
 				studentNames = addStudentName(studentNames, name)
 				studentGrades = addStudentGrade(studentGrades, grade)
 			}
-			break
 		case 2:
 			showAllStudents(studentNames, studentGrades)
-			break
 		case 3:
 			getStatistics(studentNames, studentGrades)
-			break
 		case 4:
 			isDataOk, name, grade = getStudentData()
 			if isDataOk {
 				index := isStudentExist(studentNames, studentGrades, name, grade)
 				if index >= 0 {
-					deleteStudent(studentNames, studentGrades, index)
+					studentNames, studentGrades = deleteStudent(studentNames, studentGrades, index)
 				} else {
 					fmt.Println("Student does not exist")
 				}
@@ -414,5 +414,7 @@ func isStudentExist(studentNames []string, studentGrades []float64, name string,
 func deleteStudent(studentNames []string, studentGrades []float64, index int) ([]string, []float64) {
 	studentNames = append(studentNames[:index], studentNames[index+1:]...)
 	studentGrades = append(studentGrades[:index], studentGrades[index+1:]...)
+	fmt.Println("Student Grades:", studentGrades)
+	fmt.Println("Student Names:", studentNames)
 	return studentNames, studentGrades
 }
