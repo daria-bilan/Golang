@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
+
 func main() {
 	// Creating maps
 	//// Method 1: Map literal (most common)
@@ -449,5 +455,135 @@ func main() {
 	//	totalValue += v
 	//}
 	//fmt.Printf("Total value: %2.f\n", totalValue)
+
+	// === Homework ===
+	contacts := make(map[string][]string)
+	isWork := true
+
+	for isWork {
+		userAnswer := 0
+		fmt.Println("1. Add contact\n" +
+			"2. Search contact\n" +
+			"3. Update contact\n" +
+			"4. Delete contact\n" +
+			"5. Display all contacts\n" +
+			"6. Statistics by starting name\n" +
+			"7. Exit")
+		fmt.Scan(&userAnswer)
+
+		switch userAnswer {
+		case 1:
+			name := ""
+			phone := ""
+			fmt.Print("Enter name:")
+			fmt.Scan(&name)
+			name = strings.Title(strings.ToLower(name))
+			fmt.Print("Enter phone:")
+			fmt.Scan(&phone)
+
+			if _, exist := contacts[name]; exist {
+				fmt.Println("Your contact already exists. Do you want to add one more number?")
+				agreed := ""
+				fmt.Scan(&agreed)
+				if agreed == "yes" {
+					contacts[name] = append(contacts[name], phone)
+					fmt.Println("✅ Phone number added!")
+				} else {
+					fmt.Println("ℹ️  Contact not modified")
+				}
+			} else {
+				contacts[name] = append(contacts[name], phone)
+				fmt.Println("✅ Contact added!")
+			}
+		case 2:
+			name := ""
+			fmt.Print("Enter name to search:")
+			fmt.Scan(&name)
+			name = strings.Title(strings.ToLower(name))
+			if _, exist := contacts[name]; exist {
+				fmt.Printf("📞 %s:	%s\n", name, contacts[name])
+			} else {
+				fmt.Println("❌ Contact not found")
+			}
+		case 3:
+			name := ""
+			phone := ""
+			fmt.Print("Enter name to update:")
+			fmt.Scan(&name)
+			name = strings.Title(strings.ToLower(name))
+
+			if _, exist := contacts[name]; exist {
+				fmt.Println("Current phones:", contacts[name])
+				fmt.Println("Whith phone you want to update (0,...):")
+				phoneIndex := -1
+				fmt.Scan(&phoneIndex)
+				if phoneIndex < 0 || phoneIndex > len(contacts[name]) {
+					fmt.Printf("❌ Invalid index. Must be 0-%d\n", len(contacts[name])-1)
+					break
+				}
+				fmt.Print("Enter new phone:")
+				fmt.Scan(&phone)
+				contacts[name][phoneIndex] = phone
+				fmt.Println("✅ Contact updated!")
+
+			} else {
+				fmt.Println("Your contact is NOT contacts. Add it instead of changing :).")
+			}
+		case 4:
+			name := ""
+			fmt.Print("Enter name to delete:")
+			fmt.Scan(&name)
+			name = strings.Title(strings.ToLower(name))
+			if _, exist := contacts[name]; exist {
+				delete(contacts, name)
+				fmt.Println("✅ Contact deleted!")
+			} else {
+				fmt.Println("❌ Contact not found")
+			}
+		case 5:
+			names := []string{}
+			for name := range contacts {
+				names = append(names, name)
+			}
+			sort.Strings(names)
+			fmt.Println("---All contacts---")
+			totalContacts := len(contacts)
+			fmt.Println("Total contacts:", totalContacts)
+			for _, name := range names {
+				fmt.Printf("%s: ", name) // name
+				for index, phone := range contacts[name] {
+					if index > 0 {
+						fmt.Print(", ")
+					}
+					fmt.Print(phone) // phone
+				}
+				fmt.Println()
+			}
+			fmt.Println("\n Unsorted output:")
+			for name, phones := range contacts {
+				fmt.Printf("%s: ", name)
+				for index, phone := range phones {
+					if index > 0 {
+						fmt.Print(", ")
+					}
+					fmt.Printf("%s\n", phone)
+				}
+				fmt.Println()
+			}
+		case 6:
+			byFirstLetter := make(map[string]int)
+			for name := range contacts {
+				byFirstLetter[string(name[0])]++
+			}
+			fmt.Println("byFirstLetter:", byFirstLetter)
+		case 7:
+			fmt.Println("Goodbye!")
+			isWork = false
+			return
+		default:
+			fmt.Println("Unrecognized command")
+		}
+
+	}
 
 }
