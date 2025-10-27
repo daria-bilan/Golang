@@ -136,8 +136,8 @@ func main() {
 	//fmt.Println("Date:", date)
 
 	// 5. Time arithmetic (Duration)
-	now := time.Now()
-	fmt.Println("Now:", now.Format("2006-01-02 15:04:05"))
+	//now := time.Now()
+	//fmt.Println("Now:", now.Format("2006-01-02 15:04:05"))
 
 	//// Add duration
 	//oneHourLater := now.Add(time.Hour)
@@ -175,4 +175,84 @@ func main() {
 	//fmt.Println("1y 2m 15d 3h later:", future.Format("2006-01-02 15:04"))
 
 	// 6. Comparing Times
+	//now := time.Now()
+	//past := now.Add(-2 * time.Hour)
+	//future := now.Add(2 * time.Hour)
+
+	//// Before / After
+	//fmt.Printf("Past: %s\tNow: %s\tFuture: %s\n", past.Format("2006-01-02 15:04:05"), now.Format("2006-01-02 15:04:05"), future.Format("2006-01-02 15:04:05"))
+	//fmt.Println("past.Before(now):", past.Before(now))
+	//fmt.Println("future.After(now):", future.After(now))
+	//fmt.Println("now.Before(past):", now.Before(past))
+	//
+	//// Equal
+	//time1 := time.Date(2025, 10, 26, 15, 30, 0, 0, time.UTC)
+	//time2 := time.Date(2025, 10, 26, 15, 30, 0, 0, time.UTC)
+	//fmt.Println("time1.Equal(time2):", time1.Equal(time2))
+
+	//// Sub - calculate duration between two times
+	//duration := future.Sub(now)
+	//fmt.Println("Duration between now and future:", duration)
+	//
+	//fmt.Println("Duration in hours:", duration.Hours())
+	//fmt.Println("Duration in minutes:", duration.Minutes())
+	//fmt.Println("Duration in seconds:", duration.Seconds())
+
+	// Since / Until
+	//elapsed := time.Since(past)
+	//elapsed1 := time.Now().Sub(past)
+	//fmt.Println("Time since past:", elapsed)
+	//fmt.Println("Time since past:", elapsed1)
+	//
+	//remaining := time.Until(future)
+	//fmt.Println("Time until remaining:", remaining)
+
+	//// Calculating Age
+	//// Birthday
+	//birthday := time.Date(2002, time.August, 27, 0, 0, 0, 0, time.UTC)
+	//now := time.Now()
+	//
+	//age := now.Year() - birthday.Year()
+	//
+	//// Adjust if birthday hasn't happened this year yet
+	//if now.Month() < birthday.Month() || (now.Month() == birthday.Month() && now.Day() < birthday.Day()) {
+	//	age--
+	//}
+	//
+	//fmt.Printf("Born: %s\n", birthday.Format("January 2, 2006"))
+	//fmt.Printf("Today: %s\n", now.Format("January 2, 2006"))
+	//fmt.Printf("Age: %d years old\n", age)
+	//
+	//// Days until next birthday
+	//nextBirthday := time.Date(now.Year(), birthday.Month(), birthday.Day(), 0, 0, 0, 0, time.UTC)
+	//
+	//if nextBirthday.Before(now) {
+	//	nextBirthday = nextBirthday.AddDate(1, 0, 0)
+	//}
+	//
+	//daysUntil := int(nextBirthday.Sub(now).Hours() / 24)
+	//fmt.Printf("Days until next birthday: %d\n", daysUntil)
+
+	//Sleep and Timer
+	fmt.Println("Starting at:", time.Now().Format("15:04:05"))
+
+	//// Sleep for 2 seconds
+	//fmt.Println("Sleeping for 2 seconds...")
+	//time.Sleep(2 * time.Second)
+	//fmt.Println("Woke up at:", time.Now().Format("15:04:05"))
+
+	//// Countdown example
+	//fmt.Println("\nCountdown:")
+	//for i := 5; i > 0; i-- {
+	//	fmt.Println(i)
+	//	time.Sleep(1 * time.Second)
+	//}
+	//fmt.Println("Go!")
+
+	//// Timer
+	//fmt.Println("\nSetting timer for 3 seconds...")
+	//timer := time.NewTimer(3 * time.Second)
+	//<-timer.C // Wait for timer to fire
+	//fmt.Println("Timer fired at:", time.Now().Format("15:04:05"))
+
 }
